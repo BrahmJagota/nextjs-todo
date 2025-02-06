@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Task } from "@prisma/client";
 import { Button } from "./button";
 import { LoaderIcon, Trash2Icon } from "lucide-react";
-import { useRouter } from "next/router";
 import { redirect } from "next/navigation";
 
 export default function TaskManager() {
@@ -34,7 +33,7 @@ const [isChecking, setIsChecking] = useState(true)
                 redirect('/signin')
             }
     })
-    .catch(err => redirect('/signin'))
+    .catch( () => redirect('/signin'))
     }
      checkAuth()
 
@@ -56,6 +55,7 @@ const [isChecking, setIsChecking] = useState(true)
       setTasks((prevTasks) => [...prevTasks, newTask.todo.createTask]);
       setTodoTitle(""); 
     } catch (error) {
+      console.log(error)
       alert("Something went wrong");
     } finally {
       setIsLoading(false);
