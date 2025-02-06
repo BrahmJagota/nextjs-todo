@@ -1,8 +1,8 @@
 import { deleteTask } from "@/actions/todo";
 import { NextResponse } from "next/server";
 
-export async function DELETE(req: Request, {params}: {params: {taskId: string}}) {
-    const { taskId } = params;
+export async function DELETE(req: Request, { params }: { params: Promise<{ taskId: string }> }) {
+    const taskId = (await params).taskId
     try{
         const isDeleted = await deleteTask(taskId)
         return NextResponse.json({isDeleted}, { status: 200 });
